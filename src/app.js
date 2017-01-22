@@ -29,6 +29,7 @@ export const echo = (appId, token) => (req, res) => {
 
   log('Got a message %o', req.body);
   let nameOfSpace = req.body.spaceName;
+  let nameOfPoster = req.body.userName;
   // let myKeyword = 'fulltime';
   // React to 'hello' or 'hey' keywords in the message and send an echo
   // message back to the conversation in the originating space
@@ -38,8 +39,8 @@ export const echo = (appId, token) => (req, res) => {
       send('58839bebe4b0d193a2350d00',
 
       util.format(
-        'Job found in channel %s: %s?',
-         nameOfSpace, req.body.content),
+        'Job found in channel %s: \r\n %s. \r\n Posted by %s',
+         nameOfSpace, req.body.content, nameOfPoster ),
       token(),
       (err, res) => {
         if(!err)
