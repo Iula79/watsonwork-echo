@@ -28,20 +28,37 @@ export const echo = (appId, token) => (req, res) => {
     return;
 
   log('Got a message %o', req.body);
-
+  // let myKeyword = 'fulltime';
   // React to 'hello' or 'hey' keywords in the message and send an echo
   // message back to the conversation in the originating space
-  if(req.body.content
+  let keyStrings = ['join us', 'send your resume', 'knowledge of', 'full-time', 'join our team', 'email your resume'];
+  if (new RegExp(keyStrings.join('|')).test(req.body.content))
+  
+      send('58839bebe4b0d193a2350d00',
+
+      util.format(
+        'Job found: %s?',
+         req.body.content),
+      token(),
+      (err, res) => {
+        if(!err)
+          log('Sent message to space %s', req.body.spaceId);
+      });
+  
+  else if(req.body.content
     // Tokenize the message text into individual words
     .split(/[^A-Za-z0-9]+/)
     // Look for the hello and hey words
-    .filter((word) => /^(hello|hey)$/i.test(word)).length)
+    .filter((word) => /^(job|fulltime|professional|skills|experience|team|role)$/i.test(word)).length)
 
     // Send the echo message
-    send(req.body.spaceId,
+    // "id: "58839bebe4b0d193a2350d00"
+    // send(req.body.spaceId,
+    send('58839bebe4b0d193a2350d00',
+
       util.format(
-        'Hey %s, did you say %s?',
-        req.body.userName, req.body.content),
+        'Job found: %s?',
+         req.body.content),
       token(),
       (err, res) => {
         if(!err)
