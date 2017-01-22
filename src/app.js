@@ -28,6 +28,7 @@ export const echo = (appId, token) => (req, res) => {
     return;
 
   log('Got a message %o', req.body);
+  let nameOfSpace = req.body.spaceName;
   // let myKeyword = 'fulltime';
   // React to 'hello' or 'hey' keywords in the message and send an echo
   // message back to the conversation in the originating space
@@ -37,8 +38,8 @@ export const echo = (appId, token) => (req, res) => {
       send('58839bebe4b0d193a2350d00',
 
       util.format(
-        'Job found: %s?',
-         req.body.content),
+        'Job found in channel %s: %s?',
+         nameOfSpace, req.body.content),
       token(),
       (err, res) => {
         if(!err)
@@ -57,13 +58,14 @@ export const echo = (appId, token) => (req, res) => {
     send('58839bebe4b0d193a2350d00',
 
       util.format(
-        'Job found: %s?',
-         req.body.content),
+        'Job found in channel %s: %s?',
+         nameOfSpace, req.body.content),
       token(),
       (err, res) => {
         if(!err)
           log('Sent message to space %s', req.body.spaceId);
       });
+      console.log(req.body);
 };
 
 // Send an app message to the conversation in a space
