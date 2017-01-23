@@ -2,8 +2,8 @@
 
 [![Build Status](https://travis-ci.org/watsonwork/watsonwork-echo.svg)](https://travis-ci.org/watsonwork/watsonwork-echo)
 
-A Node.js sample chatbot app that listens to messages posted to a space
-in IBM Watson Workspace and echoes 'hello' messages back to the space.
+A Node.js sample chatbot app that listens to job related messages posted to a space
+in IBM Watson Workspace and echoes them into a designed workspace.
 
 The Watson Work platform provides **spaces** for people to exchange
 **messages** in conversations. This app shows how to listen to a conversation
@@ -15,21 +15,6 @@ and obtain the OAuth token needed to make Watson Work API calls.
 
 To try the sample app do the following:
 
-### Deploying the app to IBM Bluemix
-
-If you have a [Bluemix](https://bluemix.net)  account and want to give the
-sample app a quick try, you can simply get it deployed to Bluemix straight
-from Github without even having to download it to your local development
-environment and build it yourself. Just click the button below:
-
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/watsonwork/watsonwork-echo&branch=master)
-
-Once that's done, go to your
-[Bluemix Dashboard](https://console.ng.bluemix.net/dashboard/cf-apps). The
-app you've just deployed should be listed on that page. Write down its
-**route** public URL (usually `https://<bluemix app name>.mybluemix.net`)
-as you will need it later to register the app's Webhook endpoint with
-the Watson Work platform.
 
 ### Building the app locally
 
@@ -58,33 +43,16 @@ In your Web browser, go to [Watson Work Services / Apps]
 (https://workspace.ibm.com/developer/apps) and add a new app named
 **Echo** with a Webhook configured for **message-created** events.
 
-Set the Webhook **Callback URL** to a public URL targeting the server where
-you're planning to run the sample app,
-`https://<your server hostname>/echo` for example, or
-`https://<bluemix app name>.mybluemix.net/echo` if you've deployed it
-to Bluemix.
+You can download ngrock: https://ngrok.com/ to build your webhooks integration.
+Run it locally with `<path>/ngrok http <port>` 
+
+Set the Webhook **Callback URL** to the ngrock url ex `https://044d924f.ngrok.io`and add the app extension:
+`https://044d924f.ngrok.io/echo` for example.
 
 Save the app and write down its app id, app secret and Webhook secret.
 
-### Starting the app on Bluemix
-
-Go to your
-[Bluemix Dashboard](https://console.ng.bluemix.net/dashboard/cf-apps),
-select your app and under **Runtime** / **Environment Variables** /
-**User Defined**, add the following variables:
-
-```
-ECHO_APP_ID: <the Echo app id>                                      
-ECHO_APP_SECRET: <the Echo app secret>                              
-ECHO_WEBHOOK_SECRET: <the Echo Webhook secret>
-DEBUG: watsonwork-*
-```
-
-Click the **> Start** button to start the app.
-
 ### Starting the app locally
 
-You can skip this if you've just started the app on Bluemix.
 
 In the terminal window, do the following:
 ```
